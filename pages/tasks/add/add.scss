@@ -1,0 +1,378 @@
+@import '~@braid/vue-formulate/themes/snow/_variables';
+
+$formulate-green: #194bf0;
+$formulate-green-l: #194bf0;
+// Mixins
+// -----------------------------------------------------------------------------
+@mixin baseinput {
+  appearance: none;
+  border-radius: 0.3em;
+  border: 1px solid $formulate-gray-d;
+  box-sizing: border-box;
+  background-color: transparent;
+  font-size: 0.9em;
+  font-family: $formulate-font-stack;
+  padding: 0.75em;
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  line-height: 1.2em;
+  margin: 0;
+
+  &::placeholder {
+    color: $formulate-gray-dd;
+    line-height: normal;
+  }
+
+  &:focus {
+    outline: 0;
+    border: 1px solid $formulate-green;
+  }
+}
+
+.formulate-input {
+  // File inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='file'] {
+    .formulate-input-upload-area {
+      width: 100%;
+      position: relative;
+      padding: 2em 0;
+
+      input {
+        cursor: pointer;
+        appearance: none;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+      }
+
+      &[data-has-files] {
+        padding: 0;
+
+        input {
+          display: none;
+        }
+      }
+
+      &-mask {
+        border-radius: 0.4em;
+        position: absolute;
+        pointer-events: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border: 2px dashed $formulate-gray-dd;
+        z-index: 2;
+
+        &::before {
+          content: '';
+          background-color: $formulate-gray-dd;
+          mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58"><path d="M29,58A29,29,0,1,0,0,29,29,29,0,0,0,29,58ZM29,4A25,25,0,1,1,4,29,25,25,0,0,1,29,4Z"/><polygon points="27 22 27 44.4 31 44.4 31 22 41.7 31.1 44.3 28.1 29 15 13.7 28.1 16.3 31.1 27 22"/></svg>');
+          mask-repeat: no-repeat;
+          mask-position: center;
+          width: 2em;
+          height: 2em;
+          position: absolute;
+          pointer-events: none;
+        }
+      }
+
+      input:focus,
+      input:hover,
+      input[data-is-drag-hover] {
+        & ~ .formulate-input-upload-area-mask {
+          border-color: $formulate-green;
+
+          &::before {
+            background-color: $formulate-green;
+          }
+        }
+      }
+    }
+
+    .formulate-files {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .formulate-file-progress {
+        background-color: $formulate-gray-d;
+        height: 0.3em;
+        border-radius: 1.25em;
+        width: 5em;
+        overflow: hidden;
+        position: relative;
+        flex: 0 0 5em;
+        right: 0.75em;
+        transition: height 0.25s, width 0.25s, flex-basis 0.25s;
+        z-index: 2;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: block;
+          opacity: 0;
+          transform: scale(0.08);
+          background-color: $formulate-white;
+          mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M8.76,56.2c-6.38-6.34,3.26-16,9.64-9.69L38,65.88,80.56,23.29c6.38-6.38,16.07,3.32,9.69,9.69L42.84,80.37a6.83,6.83,0,0,1-9.65,0Z"/></svg>');
+          mask-size: 77%;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          z-index: 3;
+        }
+
+        &[data-just-finished] {
+          width: 1.25em;
+          height: 1.25em;
+          flex: 0 0 1.25em;
+
+          &::before {
+            transition: transform 0.25s 0.2s, opacity 0.25s 0.2s;
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        &[data-is-finished] {
+          transition: height 0.25s, width 0.25s, left 0.25s, top, 0.25s,
+          border-radius 0.25s;
+          width: 0.3em;
+          flex: 0 0 0.3em;
+          height: 100%;
+          right: 0;
+          border-radius: 0 0.23em 0.23em 0;
+
+          &::before {
+            transition: opacity 0.1s;
+            opacity: 0;
+          }
+        }
+
+        .formulate-file-progress-inner {
+          background-color: $formulate-green;
+          width: 1%;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          top: 0;
+          z-index: 2;
+        }
+      }
+
+      .formulate-file-name {
+        padding-left: 1.5em;
+        padding-right: 2em;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &::before {
+          position: absolute;
+          left: 0.7em;
+          top: 50%;
+          margin-top: -0.7em;
+          background-color: $formulate-gray-dd;
+          content: '';
+          mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.06 83.59"><path d="M55.94,83.59a8.16,8.16,0,0,0,8.12-8.16V19.12a1.77,1.77,0,0,0-.52-1.25L46.21.59A1.69,1.69,0,0,0,45.14.08L44.69,0l-.18,0H8.13A8.18,8.18,0,0,0,0,8.16V75.41a8.16,8.16,0,0,0,8.13,8.16H55.94ZM46.68,6,58.11,17.38H46.68ZM3.52,75.43V8.16A4.64,4.64,0,0,1,8.13,3.52h35V19.16a1.75,1.75,0,0,0,1.76,1.74H60.55V75.43a4.65,4.65,0,0,1-4.61,4.65H8.13A4.65,4.65,0,0,1,3.52,75.43Z"/></svg>');
+          mask-repeat: no-repeat;
+          mask-size: contain;
+          width: 1.25em;
+          height: 1.25em;
+          display: inline-block;
+          margin-right: 0.5em;
+        }
+      }
+
+      .formulate-file-remove {
+        width: 1.25em;
+        height: 1.25em;
+        border-radius: 1em;
+        border: 1px solid $formulate-gray-dd;
+        background-color: $formulate-gray-dd;
+        mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.1 59.2"><path d="M1.6,57.7a5,5,0,0,0,3.5,1.5,4.85,4.85,0,0,0,3.5-1.5l21-21,21,21a5,5,0,0,0,3.5,1.5,4.85,4.85,0,0,0,3.5-1.5,5,5,0,0,0,0-7.1l-21-21,21-21a5,5,0,0,0,0-7.1,5,5,0,0,0-7.1,0l-21,21L8.6,1.7a5,5,0,0,0-7.1,0,5,5,0,0,0,0,7.1l21,21L1.6,50.7A4.83,4.83,0,0,0,1.6,57.7Z"/></svg>');
+        mask-size: 0.6em;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        cursor: pointer;
+        position: absolute;
+        right: 0.75em;
+        z-index: 1;
+        transition: transform 0.25s;
+
+        @media (pointer: fine) {
+          &:hover {
+            transform: scale(1.5);
+          }
+        }
+      }
+
+      li {
+        display: block;
+
+        &[data-has-error] {
+          .formulate-file-progress {
+            background-color: $formulate-error-l;
+          }
+        }
+
+        &[data-has-preview] {
+          .formulate-file-name {
+            &:before {
+              display: none;
+            }
+          }
+        }
+
+        & + li {
+          margin-top: 0.5em;
+        }
+      }
+
+      .formulate-file {
+        @include baseinput;
+        display: block;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+
+        @mixin progress {
+          appearance: none;
+          height: 0.5em;
+          border-radius: 0.5em;
+          overflow: hidden;
+        }
+
+        ::-webkit-progress-bar {
+          @include progress;
+        }
+      }
+
+      .formulate-file-image-preview {
+        width: 3em;
+        height: 3em;
+        flex: 0 0 3em;
+        position: relative;
+        z-index: 2;
+        left: -1px;
+        box-shadow: 0 0 0 1px $formulate-gray;
+        transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
+
+        @media (pointer: fine) {
+          &:hover {
+            transition-delay: 0.2s;
+            transform: scale(8);
+            background-color: $formulate-white;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        img {
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          object-fit: contain;
+          transition: all 0.25s;
+        }
+      }
+    }
+
+    // Image uploads
+    // -----------------------------------------------------------------------------
+
+    [data-type='image'] {
+      .formulate-input-upload-area {
+        .formulate-input-upload-area-mask {
+          &::before {
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 71.05"><path d="M82.89,0H7.1A7.12,7.12,0,0,0,0,7.11V64a7.11,7.11,0,0,0,7.1,7.1H82.9A7.11,7.11,0,0,0,90,64V7.11A7.12,7.12,0,0,0,82.89,0ZM69.28,39.35a5.44,5.44,0,0,0-8,0L50.58,50.74,32.38,30.88a5.31,5.31,0,0,0-7.92,0L4.74,52.4V7.11A2.37,2.37,0,0,1,7.11,4.74H82.9a2.37,2.37,0,0,1,2.36,2.37V56.3Z"/><circle cx="67.74" cy="22.26" r="8.53"/></svg>');
+          }
+        }
+      }
+    }
+  }
+}
+
+.newInput .form-group,
+.newInputB .form-group {
+  margin-bottom: 13px !important;
+}
+
+.form-wrapper {
+  padding: 2em;
+  border: 1px solid #a8a8a8;
+  border-radius: 0.5em;
+  box-sizing: border-box;
+  max-width: 450px;
+}
+
+.form-wrapper::v-deep .formulate-input-element {
+  max-width: none;
+}
+
+@media (min-width: 650px) {
+  .triple {
+    display: flex;
+  }
+
+  .triple .formulate-input {
+    margin-bottom: 0.25em;
+    margin-right: 1em;
+    flex-grow: 1;
+  }
+
+  .triple .formulate-input[data-classification='select'] {
+    flex: 0 0 5em;
+  }
+
+  .triple .formulate-input:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 720px) {
+  .triple {
+    display: block;
+  }
+
+  .triple .formulate-input {
+    margin-bottom: 1.5em;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 850px) {
+  .triple {
+    display: flex;
+  }
+  .triple .formulate-input {
+    margin-bottom: 0.25em;
+    margin-right: 1em;
+  }
+
+  .triple .formulate-input:last-child {
+    margin-right: 0;
+  }
+}

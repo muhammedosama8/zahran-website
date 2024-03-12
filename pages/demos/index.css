@@ -1,0 +1,12 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.tableNewBranch tbody tr td {
+    padding-top: 1.3rem !important;
+}
+.btnAdd:hover{
+    opacity: 1 !important;
+}
+.minWidthCol tbody tr td{
+    min-width: 10rem;
+}

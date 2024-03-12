@@ -1,0 +1,19 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.imgMedia{
+    width: 121px;
+    height: 121px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 1rem;
+}
+.textmuted{
+    color: #c4c6ce;
+}
+.editLast td:last-child{
+    text-align: right !important;
+}
+.QuantityTable th:last-child{
+    text-align: left !important;
+}

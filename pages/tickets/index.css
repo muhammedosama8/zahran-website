@@ -1,0 +1,6 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.minWidthCol tbody tr td{
+    min-width: 11rem;
+}

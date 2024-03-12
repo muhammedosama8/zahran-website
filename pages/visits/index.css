@@ -1,0 +1,14 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.btnAdd:hover{
+    opacity: 1 !important;
+}
+.minWidthCol tbody tr td{
+    min-width: 10rem !important;
+}
+.newImageHover:hover{
+    transform: scale(6);
+    z-index: 2;
+    border-radius: 0px !important;
+}

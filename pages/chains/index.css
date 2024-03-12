@@ -1,0 +1,9 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.tableNewBranch tbody tr td {
+    padding-top: 1.3rem !important;
+}
+.tableNewBranch tbody tr td:nth-child(2) .b-avatar{
+    margin-top: -0.2rem;
+}

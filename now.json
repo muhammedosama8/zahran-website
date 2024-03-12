@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "env": {
+    "environment": "production",
+    "ON_VERCEL": "true",
+    "API_ROOT": "https://pencilprod.com/zahran/dev"
+  },
+  "build": {
+    "env": {
+      "environment": "production",
+      "ON_VERCEL": "true",
+      "API_ROOT": "https://pencilprod.com/zahran/dev"
+    }
+  },
+  "builds": [
+    {
+      "src": "nuxt.config.js",
+      "use": "@nuxtjs/vercel-builder",
+      "config": {}
+    }
+  ]
+}

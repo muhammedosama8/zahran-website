@@ -1,0 +1,11 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.tableNewBranch tbody tr td:nth-child(2),
+.tableNewBranch tbody tr td:nth-child(3),
+.tableNewBranch tbody tr td:nth-child(4) {
+    padding-top: 1.3rem !important;
+}
+.btnAdd:hover{
+    opacity: 1 !important;
+}

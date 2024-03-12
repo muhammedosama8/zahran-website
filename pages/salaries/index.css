@@ -1,0 +1,6 @@
+.borderRadius {
+    border-radius: 25px !important;
+}
+.table tbody tr td{
+    padding-top: 0.75rem !important;
+}
